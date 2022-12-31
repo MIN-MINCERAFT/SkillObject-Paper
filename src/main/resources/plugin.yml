@@ -1,0 +1,4 @@
+name: SkillObject
+version: '${project.version}'
+main: com.min.skillobject.SkillManager
+api-version: 1.19
