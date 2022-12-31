@@ -27,15 +27,15 @@ abstract public class SkillObject {
 		this.location = location;
 	}
 
-	public final void setOwner(Player owner) {
-		this.owner = owner;
-	}
-
 	public final Player getOwner() {
 		if (owner == null) {
 			return null;
 		}
 		return owner;
+	}
+
+	public final void setOwner(Player owner) {
+		this.owner = owner;
 	}
 
 	public final void teleport(Location position) {
@@ -77,7 +77,7 @@ abstract public class SkillObject {
 		double x = -xz * sin(toRadians(location.getYaw()));
 		double z = xz * cos(toRadians(location.getYaw()));
 		float length = (float) sqrt(x * x + y * y + z * z);
-		if(length == 0) return new Vector(0, 0, 0);
+		if (length == 0) return new Vector(0, 0, 0);
 		return new Vector(x / length, y / length, z / length);
 	}
 
@@ -100,7 +100,7 @@ abstract public class SkillObject {
 			World world = location.getWorld();
 			for (Entity entity : world.getEntities()) {
 				if (location.distance(entity.getLocation()) > ((SkillBase) this).getDistance()) continue;
-				if(entity.getType().getEntityClass() != null) {
+				if (entity.getType().getEntityClass() != null) {
 					if (SkillManager.canTarget.contains(entity.getType().getEntityClass().getName())) {
 						((SkillBase) this).skillAttack((LivingEntity) entity);
 						continue;

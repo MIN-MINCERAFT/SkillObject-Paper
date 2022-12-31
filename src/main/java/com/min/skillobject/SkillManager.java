@@ -35,7 +35,7 @@ public final class SkillManager extends JavaPlugin {
 	}
 
 	public void registerMob(EntityType entity) {
-		if(entity.getEntityClass() != null) {
+		if (entity.getEntityClass() != null) {
 			if (!canTarget.contains(entity.getEntityClass().getName())) {
 				canTarget.add(entity.getEntityClass().getName());
 			}

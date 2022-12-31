@@ -19,8 +19,8 @@ public class SkillObjectRunnable implements Runnable {
 
 	@Override
 	public void run() {
-		if(objects == null) return;
-		for (Iterator<SkillObject> iterator = objects.iterator(); iterator.hasNext();) {
+		if (objects == null) return;
+		for (Iterator<SkillObject> iterator = objects.iterator(); iterator.hasNext(); ) {
 			SkillObject item = iterator.next();
 			if (item.isClosed()) {
 				iterator.remove();
