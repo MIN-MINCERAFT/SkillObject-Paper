@@ -45,6 +45,8 @@ public class RoastSkillObject extends SkillObject implements SkillEffect {
 	   * Here is skill effect
 	   * You can decide here what the skill object will do per tick.
 	   */
+		Location location = getLocation();
+		location.getWorld().spawnParticle(Particle.REDSTONE, location, 1, (new Particle.DustOptions(Color.BLUE, 3)));
 		teleport(getDirectionVector().multiply(1.5).add(
 				new Vector(
 						location.getX(),
@@ -52,8 +54,6 @@ public class RoastSkillObject extends SkillObject implements SkillEffect {
 						location.getZ()
 				)
 		));
-		Location location = getLocation();
-		location.getWorld().spawnParticle(Particle.REDSTONE, location, 1, (new Particle.DustOptions(Color.BLUE, 3)));
 	}
 }
 ```
@@ -86,6 +86,8 @@ public class RoastSkillObject extends SkillObject implements SkillBase {
 		 * Here is skill effect
 		 * You can decide here what the skill object will do per tick.
 		 */
+		Location location = getLocation();
+		location.getWorld().spawnParticle(Particle.REDSTONE, location, 1, (new Particle.DustOptions(Color.BLUE, 3)));
 		teleport(getDirectionVector().multiply(1.5).add(
 				new Vector(
 						location.getX(),
@@ -93,8 +95,6 @@ public class RoastSkillObject extends SkillObject implements SkillBase {
 						location.getZ()
 				)
 		));
-		Location location = getLocation();
-		location.getWorld().spawnParticle(Particle.REDSTONE, location, 1, (new Particle.DustOptions(Color.BLUE, 3)));
 	}
 }
 ```
