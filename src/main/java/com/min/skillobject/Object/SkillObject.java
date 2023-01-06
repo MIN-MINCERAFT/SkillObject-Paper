@@ -21,7 +21,9 @@ abstract public class SkillObject {
 
 	protected boolean closed = false;
 
-	protected int closeTimer = 10;
+	protected int closeTick = 10;
+
+	protected int tick = 0;
 
 	public SkillObject(Location location) {
 		this.location = location;
@@ -39,35 +41,15 @@ abstract public class SkillObject {
 	}
 
 	public final void teleport(Location position) {
-		this.location = position;
+		location = position;
 	}
 
 	public final void teleport(Vector position) {
-		this.location = new Location(location.getWorld(), position.getX(), position.getY(), position.getZ(), location.getYaw(), location.getPitch());
+		location = new Location(location.getWorld(), position.getX(), position.getY(), position.getZ(), location.getYaw(), location.getPitch());
 	}
 
 	public final Location getLocation() {
 		return location;
-	}
-
-	public final boolean isClosed() {
-		return closed;
-	}
-
-	public void close() {
-		closed = true;
-	}
-
-	public final void spawn() {
-		SkillObjectRunnable.addObject(this);
-	}
-
-	public final void setCloseTimer(int tick) {
-		closeTimer = tick;
-	}
-
-	public final Location getDirectionLocation() {
-		return getDirectionVector().toLocation(location.getWorld());
 	}
 
 	public final Vector getDirectionVector() {
@@ -81,13 +63,31 @@ abstract public class SkillObject {
 		return new Vector(x / length, y / length, z / length);
 	}
 
+	public final int getTick() {
+		return tick;
+	}
+
+	public final boolean isClosed() {
+		return closed;
+	}
+
+	public void close() {
+		closed = true;
+	}
+
+	public final void setCloseTick(int closeTick) {
+		this.closeTick = closeTick;
+	}
+
+	public final void spawn() {
+		SkillObjectRunnable.addObject(this);
+	}
+
 	public void skillTick() {
-		this.closeTimer--;
-		if (this.closeTimer <= 0) {
+		if (closeTick <= 0) {
 			this.close();
 			return;
 		}
-		Player owner = this.owner;
 		if (owner == null) {
 			close();
 			return;
@@ -107,7 +107,7 @@ abstract public class SkillObject {
 					}
 				}
 				if (SkillManager.pvpWorlds.contains(world.getName())) {
-					if (entity instanceof Player && (getOwner() == null || owner.getUniqueId() != entity.getUniqueId())) {
+					if (entity instanceof Player && (owner == null || owner.getUniqueId() != entity.getUniqueId())) {
 						if (((Player) entity).getGameMode() == GameMode.SURVIVAL) {
 							((SkillBase) this).skillAttack((LivingEntity) entity);
 						}
@@ -115,5 +115,7 @@ abstract public class SkillObject {
 				}
 			}
 		}
+		closeTick--;
+		tick++;
 	}
 }
